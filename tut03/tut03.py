@@ -1,4 +1,5 @@
 import os
+# import shutil
 
 # CSV data file
 REGISTRATION_CSV_FILE = "regtable_old.csv"
@@ -8,6 +9,9 @@ def create_folder(folder_name):
     """
     Create folder if it does not exist already
     """
+    # if os.path.exists(folder_name):
+    #     shutil.rmtree(folder_name)
+    # os.makedirs(folder_name)
     if not os.path.exists(folder_name):
         os.makedirs(folder_name)
 
