@@ -6,7 +6,7 @@ import shutil
 web_series = ["Breaking Bad", "Game of Thrones", "Lucifer"]
 # master pattern for matching srt and mp4 files of all series
 pattern = re.compile(
-    r"(Breaking Bad|Game of Thrones|Lucifer) -? ?s?(\d+)[ex]?(\d+) -? ?([\w ]+).*\.(mp4|srt)"
+    r"(Breaking Bad|Game of Thrones|Lucifer) -? ?s?(\d+)[ex]?(\d+) -? ?([\w '\"]+).*\.(mp4|srt)"
 )
 
 
@@ -107,6 +107,8 @@ def rename_files(dest_dir, season_padding, episode_padding):
             corrected_filename += " - " + episode_name
         # add file extension
         corrected_filename += "." + file_extension
+        # replace multiple spaces
+        corrected_filename = re.sub(r"  +", " ", corrected_filename)
         # full path of corrected file
         corrected_filename = os.path.join(dest_dir, corrected_filename)
         # full path of incorrectly-named file
