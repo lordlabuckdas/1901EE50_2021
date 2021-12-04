@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <title>Marksheet Generator</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+        <style>
+        .titles{
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding-top: 15px;
+        }
+        </style>
+    </head>
+    <body>
+        <br>
+        <h1 style="text-align: center">Marksheet Generator</h1>
+        <br>
+        <br>
+        <div class="container">
+        <form action="/" method="post" enctype="multipart/form-data">
+            
+            <div class="form-group">
+                <label for="roll" class="titles">Browse master_roll CSV file</label><br>
+                <input type="file" id="roll" name="roll"><br>
+            </div>
+            <div class="form-group">
+                <label for="response" class="titles">Browse response CSV file</label><br>
+                <input type="file" id="response" name="response"><br>
+            </div>
+            <div class="form-group">
+                <label for="pmarks" class="titles">Marks for correct answer</label><br>
+                <input type="number" id="pmarks" name="pmarks" step=".01"><br>
+            </div>
+            <div class="form-group">
+                <label for="nmarks" class="titles">Marks for wrong answer</label><br>
+                <input type="number" id="nmarks" name="nmarks" step=".01"><br>
+            </div>
+            <label for="rollwisescore" class="titles">Generate roll number-wise marksheet</label><br>
+            <button class="btn btn-primary" type="submit" id="rollwisescore" name="rollwisescore">Generate</button><br>
+        </form>
+        <form action="/concisescore" method="get">
+            <label for="concisescore" class="titles">Generate concise marksheet with roll number, obtained marks, marks after negative</label><br>
+            <button class="btn btn-info" type="submit" id="concisescore" name="concisescore">Generate</button><br>
+        </form>
+        <form action="/sendemail" method="get">
+            <label for="sendemail" class="titles">Send email of score sheets to all students</label><br>
+            <button class="btn btn-warning" type="button" id="sendemail" name="sendemail" >Send email</button><br>
+        </form>
+        {% if concise_generated %}
+            <button type="button">
+                <a href="/download/concise_marksheet.csv">Download concise marksheet</a>
+            </button>
+        {% endif %}
+        {% if error %}
+            <img style="display:none;" src="x" onerror="alert('{{ error }}')" />
+        {% endif %}
+        </div>
+    </body>
+</html>
